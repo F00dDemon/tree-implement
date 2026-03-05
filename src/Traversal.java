@@ -1,6 +1,9 @@
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Traversal {
   public static void main(String[] args) {
@@ -37,7 +40,44 @@ public class Traversal {
 
     // System.out.println(countNode(root));
 
-    System.out.println(toMap(stringRoot));
+    // System.out.println(toMap(stringRoot));
+
+    TreeNode<Integer> megaRoot = new TreeNode<Integer>(1, null, null);
+
+    TreeNode<Integer> current = megaRoot;
+
+    for (int i = 2; i <= 5000; i++) {
+        current.right = new TreeNode<Integer>(i, null, null);
+        current = current.right;
+    }
+    levelOrderIter(root);
+  }
+
+  public static <T> void preOrderIter(TreeNode<T> node){
+    Stack<TreeNode<T>> stack = new Stack<>();
+
+    stack.push(node);
+
+    while(!stack.empty()){
+      TreeNode<T> current = stack.pop();
+      if(current == null) continue;
+      System.out.print(current.value + " ");
+      stack.push(current.left);
+      stack.push(current.right);
+    }
+  }
+  public static <T> void levelOrderIter(TreeNode<T> node){
+    Queue<TreeNode<T>> stack = new LinkedList<>();
+
+    stack.add(node);
+
+    while(!stack.isEmpty()){
+      TreeNode<T> current = stack.poll();
+      if(current == null) continue;
+      System.out.print(current.value + " ");
+      stack.add(current.left);
+      stack.add(current.right);
+    }
   }
 
   public static int countNode(TreeNode<?> node){
